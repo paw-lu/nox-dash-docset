@@ -1,0 +1,14 @@
+{
+  "_output_dir": "/Users/pawlu/Documents/personal",
+  "_template": "https://github.com/paw-lu/cookiecutter-dash-docset",
+  "documentation_url": "https://nox.thea.codes/en/stable/",
+  "github_username": "paw-lu",
+  "installable_name": "nox",
+  "library_name": "nox",
+  "library_owner": "wntrblm",
+  "library_repository_name": "nox",
+  "library_version": "2022.8.7",
+  "project_name": "nox-dash-docset",
+  "python_version": "3.10",
+  "your_name": "Paulo S. Costa"
+}
