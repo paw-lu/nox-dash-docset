@@ -67,23 +67,10 @@ def clone(session: Session) -> None:
 @nox.session(python=PYTHON, tags=["build"])
 def docs(session: Session) -> None:
     """Build nox's docs."""
-    # Remove the NotImplemented error once the correct doc build steps
-    # have been added
-    raise NotImplementedError(
-        "Replace starter code below with correct docs build steps."
-    )
-    # Instructions are usually found in a file named CONTRIBUTING.md,
-    # or by copying the steps in the workflows found in
-    # .github/workflows/
-    # Check if it works by running nox --tags=build in your terminal
-    # This is an example doc step process that works with most libraries
-    # It may or may not work with the library you are targeting
+    # Weird case here where the library itself is used to build the docs
+    session.install("--requirement=doc-requirements.txt")
     with session.chdir(LIBRARY_REPOSITORY):
-        session.install(".")
-
-    with session.chdir(pathlib.Path(LIBRARY_REPOSITORY) / "docs"):
-        session.install("--requirement=requirements.txt")
-        session.run("make", "docs", external=True)
+        session.run("nox", "--sessions=docs", "--non-interactive")
 
 
 @nox.session(python=False, tags=["build"])
@@ -92,13 +79,9 @@ def icon(session: Session) -> None:
     for size, file_name in (("16x16", "icon.png"), ("32x32", "icon@2x.png")):
         # Using convert instead of magick since only the former is
         # available by default right now in ubuntu-latest
-        # Remove the NotImplementedError once the correct icon path has
-        # been added
-        raise NotImplementedError("Specify the correct path to the icon")
         session.run(
             "convert",
-            # Specify the correct path in the line below
-            "nox/path/to/icon.png",
+            "nox/docs/_static/alice.png",
             "-resize",
             size,
             "-background",
@@ -121,7 +104,7 @@ def dash(session: Session) -> None:
         "--index-page=index.html",
         "--icon=icon.png",
         "--online-redirect-url=https://nox.thea.codes/en/stable/",
-        f"{LIBRARY_REPOSITORY}/doc/_build/html",
+        f"{LIBRARY_REPOSITORY}/docs/.nox/docs/tmp/output/html/",
         *session.posargs,
     )
     # As of 3.0.0, doc2dash does not support 2x icons
