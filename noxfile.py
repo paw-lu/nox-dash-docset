@@ -297,7 +297,7 @@ def copy_contents(session: Session) -> None:
         "--exclude=.DS_Store",
         "-cvzf",
         zipped_docset_path,
-        os.fsdecode(docset_path),
+        os.fsdecode(docset_path.name),
         external=True,
     )
 
